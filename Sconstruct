@@ -1,0 +1,9 @@
+print("o.k Iupc Build Starts")
+env=Environment()
+env=Environment(
+    CPPPATH=['./lib/boost_1_72_0/', '.', './inc'], 
+    LIBS=['libboost_regex'],
+    LIBPATH=['./lib/boost_1_72_0/stage/lib'],
+    SCONS_CXX_STANDARD='c++11')    
+
+env.Program('iupc', Glob('src/*.cpp'))
