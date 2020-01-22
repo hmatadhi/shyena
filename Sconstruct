@@ -4,6 +4,7 @@ env=Environment(
     CPPPATH=['./lib/boost_1_72_0/', '.', './inc'], 
     LIBS=['libboost_regex'],
     LIBPATH=['./lib/boost_1_72_0/stage/lib'],
-    SCONS_CXX_STANDARD='c++11')    
+    SCONS_CXX_STANDARD='c++17',
+    CCFLAGS = '-O2 -std=c++17')    
 
 env.Program('iupc', Glob('src/*.cpp'))
