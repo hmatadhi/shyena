@@ -3,7 +3,7 @@
 
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/cstdint.hpp>
-#include <sccp_context.hpp>
+#include <context_db/sccp_context.hpp>
 
 class pcap_context {
     boost::uint32_t tid;

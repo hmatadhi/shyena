@@ -1,10 +1,21 @@
-print("o.k Iupc Build Starts")
-env=Environment()
-env=Environment(
-    CPPPATH=['./lib/boost_1_72_0/', '.', './inc'], 
-    LIBS=['libboost_regex'],
-    LIBPATH=['./lib/boost_1_72_0/stage/lib'],
-    SCONS_CXX_STANDARD='c++17',
-    CCFLAGS = '-O2 -std=c++17')    
+import os
+import multiprocessing
 
-env.Program('iupc', Glob('src/*.cpp'))
+num_cpu = multiprocessing.cpu_count()
+# print('number of CPU=', num_cpu)
+env = Environment(tools = ["default", "packaging"])
+env.SetOption('num_jobs', num_cpu)
+
+# build sources
+SConscript('src/SConscript', variant_dir = '#/build', exports = 'env')
+
+# build docs
+#doc_dir = 'build/doc'
+#env['doc_dir'] = doc_dir 
+#SConscript('doc/SConscript', variant_dir = env['doc_dir'], duplicate = 0, exports = 'env') 
+
+# build doxygen
+# env = Environment(tools = ["default", "doxygen"])
+#env.Doxygen("Doxyfile")
+
+Export('env')

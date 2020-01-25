@@ -3,7 +3,7 @@
 
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/cstdint.hpp>
-#include <sctp_context.hpp>
+#include <context_db/sctp_context.hpp>
 
 class m3ua_context {
     boost::uint32_t app_cp;

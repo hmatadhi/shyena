@@ -3,7 +3,7 @@
 
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/cstdint.hpp>
-#include <m3ua_context.hpp>
+#include <context_db/m3ua_context.hpp>
 
 class sccp_context {
     boost::uint16_t id;
