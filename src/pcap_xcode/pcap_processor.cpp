@@ -104,39 +104,56 @@ PCAP_RC pcap_processor::EncapPcapPdu(boost::int32_t, boost::uint8_t) const
     return PCAP_RC_OK;
 } 
 
-
+/* requests */
 PCAP_RC pcap_processor::HandlePositionInitiationRequest(void *pPdu, PcapContextPtrType pCtxt)  const
 {
-    //pcap::ASN1T_PCAP_PDU pcapArg = *(static_cast<pcap::ASN1T_PCAP_PDU *>(pPduArg))    
-    return PCAP_RC_OK;
-}
-
-PCAP_RC pcap_processor::HandlePositionAbort(void *pPdu, PcapContextPtrType pCtxt)  const
-{   
+    pcap::ASN1T_PositionInitiationRequest pcapArg = *(static_cast<pcap::ASN1T_PositionInitiationRequest *>(pPdu));
+    /* decode PI request, add members to context db; push context to task queue */    
     return PCAP_RC_OK;
 }
 
 PCAP_RC pcap_processor::HandlePositionActivationRequest(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+    pcap::ASN1T_PositionActivationRequest pcapArg = *(static_cast<pcap::ASN1T_PositionActivationRequest *>(pPdu));
+    /* decode PA request, add members to context db; push context to task queue */ 
     return PCAP_RC_OK;
 }
 
+PCAP_RC pcap_processor::HandlePositionAbort(void *pPdu, PcapContextPtrType pCtxt)  const
+{   
+    pcap::ASN1T_Abort pcapArg = *(static_cast<pcap::ASN1T_Abort *>(pPdu));
+    /* decode Abort request, tremove members from queues, stop processing, remobe context from context db */ 
+    return PCAP_RC_OK;
+}
+
+
+/* successful responses */
 PCAP_RC pcap_processor::HandlePositionInitiationResponse(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+    pcap::ASN1T_PositionInitiationResponse pcapArg = *(static_cast<pcap::ASN1T_PositionInitiationResponse *>(pPdu));
+    /* decode PI response, add members to context db; push context to task queue */ 
     return PCAP_RC_OK;
 }
 
 PCAP_RC pcap_processor::HandlePositionActivationResponse(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+    pcap::ASN1T_PositionActivationResponse pcapArg = *(static_cast<pcap::ASN1T_PositionActivationResponse *>(pPdu));
+    /* decode PA response, add members to context db; push context to task queue */ 
     return PCAP_RC_OK;
 }
 
+
+/* failure responses */
 PCAP_RC pcap_processor::HandlePositionInitiationError(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+    pcap::ASN1T_PositionInitiationFailure pcapArg = *(static_cast<pcap::ASN1T_PositionInitiationFailure *>(pPdu));
+    /* decode PI Failure, stop  processing*/ 
     return PCAP_RC_OK;
 }
 
 PCAP_RC pcap_processor::HandlePositionActivationError(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+    pcap::ASN1T_PositionActivationFailure pcapArg = *(static_cast<pcap::ASN1T_PositionActivationFailure *>(pPdu));
+    /* decode PI Failure, stop  processing*/ 
     return PCAP_RC_OK;
 }
