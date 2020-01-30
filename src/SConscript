@@ -31,7 +31,11 @@ env.Append(CXXFLAGS = COMPILE_FLAGS)
 #        'boost_log_setup-mt', 'boost_log-mt', 'sctp', 'config++', 'm',
 #        'LCE', 'Geographic', 'MessageHelper', 'LCS-AP', 'LPPa',
 #        'asn1per', 'asn1rt']
-LIBS = ['PCAP', 'asn1per', 'asn1rt', 'pcap_xcode', 'context_db']
+LIBS = ['PCAP', 'pcap_xcode', 'context_db', 'layer_management',
+        'boost_thread-mt-d-x64', 'pthread', 'boost_system-mt-d-x64',
+        'boost_filesystem-mt-d-x64', 'boost_date_time-mt-d-x64', 'boost_regex-mt-d-x64',
+        'boost_log_setup-mt-d-x64', 'boost_log-mt-d-x64',  'm',
+          'asn1per', 'asn1rt']
 
 
 env.AppendUnique(LIBS = LIBS)
@@ -94,8 +98,8 @@ MAIN_SOURCES = [i for i in OBJECT_FILES  if not i.startswith('UT_')]
 #            source = SIM_SOURCES)
 #
 # build the main application now
-env.Program(target = "iupc",
-            source = MAIN_SOURCES)
+env.Program(target = "sas",
+            source = OBJECT_FILES)
 
 #env.Install('/usr/local/bin', 'iupc')
 #DIST_LIBS = env.Glob('#/lib/*')
@@ -116,7 +120,7 @@ env.Program(target = "iupc",
 Export('env')
 
 # build 3G libs
-#SConscript('#/lib/pcap/src/SConscript', duplicate = 0, exports = 'env')
+SConscript('#/lib/pcap/src/SConscript', duplicate = 0, exports = 'env')
 
 # build LCE lib
 #SConscript('LCE/SConscript', duplicate = 0, exports = 'env')
@@ -127,6 +131,9 @@ SConscript('context_db/SConscript', duplicate = 0, exports = 'env')
 # build pcap encode decode  lib
 SConscript('pcap_xcode/SConscript', duplicate = 0, exports = 'env')
 
+
+# build layer_management lib
+SConscript('layer_management/SConscript', duplicate = 0, exports = 'env')
 # build ConfigGenerator
 #SConscript('ConfigGenerator/SConscript', duplicate = 0, exports = 'env')
 

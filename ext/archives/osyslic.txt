@@ -1,0 +1,18 @@
+# Objective Systems products license file.
+#
+# This file must be present in one of the following directories on your
+# PC or server:
+#
+# 1. In a directory pointed to by the OSLICDIR environment variable
+# 2. In the directory in which product executable file is installed
+# 3. In any directory within your PATH
+#
+Product: ASN1C
+Version: 7.0-7.3
+User: Rohith Ramesh
+EMail: rohith.kerodi@gmail.com
+Key:
+6457f6222a3a9350f84f84eece33b8e0c7f2d2bd0ac0a2ff06f6d231959715a5
+c7f0deceb05ea5e6a96de6cd0befaf87efa45d9e424f2da0384fba42d2958117
+b85eab2cd49069cad88a2b686baab249ef908fc6a540a414a5c9c2da755a814d
+

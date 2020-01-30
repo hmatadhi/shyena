@@ -1,0 +1,9 @@
+# IMPORTANT: All unit test files must begin with UT_*
+Import('env')
+clonedEnv = env.Clone()
+# Specify source files to build
+SOURCES = Glob('*.cpp')
+
+CONTEXT_DB_Libs = clonedEnv.StaticLibrary(target = 'layer_management',  source = SOURCES)
+clonedEnv.Install('#/lib', CONTEXT_DB_Libs)
+clonedEnv.Alias('install', '#/lib')

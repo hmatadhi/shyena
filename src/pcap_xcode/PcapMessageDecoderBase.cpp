@@ -1,6 +1,6 @@
 #include "PCAP-Constants.h"
 #include "PCAP-PDU-ContentsTable.h"
-#include "pcap_xcode/MessageHelpers/PcapMessageDecoderBase.hpp"
+#include "pcap_xcode/internal/PcapMessageDecoderBase.hpp"
 
 #define LogDebug std::cout
 #define LogWarning std::cout
