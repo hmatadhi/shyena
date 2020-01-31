@@ -1,0 +1,47 @@
+diff --git a/../shyena_ext/lte-loceng/PCAP/.PCAP-Constants.asn.swp b/../shyena_ext/lte-loceng/PCAP/.PCAP-Constants.asn.swp
+new file mode 100644
+index 0000000..22da27f
+Binary files /dev/null and b/../shyena_ext/lte-loceng/PCAP/.PCAP-Constants.asn.swp differ
+diff --git a/../shyena_ext/lte-loceng/PCAP/.PCAP-PDU-Descriptions.asn.swp b/../shyena_ext/lte-loceng/PCAP/.PCAP-PDU-Descriptions.asn.swp
+new file mode 100644
+index 0000000..5ae45dd
+Binary files /dev/null and b/../shyena_ext/lte-loceng/PCAP/.PCAP-PDU-Descriptions.asn.swp differ
+diff --git a/ext/pcap/inc/PCAP-CommonDataTypes.h b/../shyena_ext/lte-loceng/PCAP/inc/PCAP-CommonDataTypes.h
+index 7b6eede..d7e1d0a 100644
+--- a/ext/pcap/inc/PCAP-CommonDataTypes.h
++++ b/../shyena_ext/lte-loceng/PCAP/inc/PCAP-CommonDataTypes.h
+@@ -1014,8 +1014,6 @@ Common Data Types
+    EXTERN int asn1Init_TransactionID (ASN1T_TransactionID* pvalue, 
+       OSBOOL free = FALSE, OSCTXT *pctxt = 0);
+ 
+-   EXTERN int asn1CmpTC_PrivateIE_ID (const ASN1T_PrivateIE_ID* pValue, const ASN1T_PrivateIE_ID* pCmpValue);
+-
+    /* Value definitions */
+ 
+    #define ASN1V_maxPrivateIEs 65535
+diff --git a/ext/pcap/inc/PCAP-ContainersClass.h b/../shyena_ext/lte-loceng/PCAP/inc/PCAP-ContainersClass.h
+index 61eda71..cc3ba54 100644
+--- a/ext/pcap/inc/PCAP-ContainersClass.h
++++ b/../shyena_ext/lte-loceng/PCAP/inc/PCAP-ContainersClass.h
+@@ -129,9 +129,6 @@ namespace pcap {
+       virtual void freeValue
+          (OSCTXT* pctxt, ASN1TObject& object) = 0;
+ 
+-      inline OSBOOL idEquals (ASN1T_PrivateIE_ID* pvalue) {
+-         return (0 == asn1CmpTC_PrivateIE_ID (&id, pvalue));
+-      }
+       inline OSBOOL criticalityEquals (ASN1T_Criticality value) {
+          return (criticality == value);
+       }
+diff --git a/ext/pcap/src/PCAP-CommonDataTypes.cpp b/../shyena_ext/lte-loceng/PCAP/src/PCAP-CommonDataTypes.cpp
+index a9206a6..f92754e 100644
+--- a/ext/pcap/src/PCAP-CommonDataTypes.cpp
++++ b/../shyena_ext/lte-loceng/PCAP/src/PCAP-CommonDataTypes.cpp
+@@ -450,7 +450,6 @@ namespace pcap {
+       }
+       return 0;
+    }
+-
+    int asn1Init_PrivateIE_ID (ASN1T_PrivateIE_ID* pvalue, 
+       OSBOOL free, OSCTXT *pctxt)
+    {
