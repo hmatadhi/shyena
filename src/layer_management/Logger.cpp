@@ -9,7 +9,7 @@
  *
  */
 
-#include "layer_management/Logger.hpp"
+#include "layer_management/internal/Logger.hpp"
 #include <time.h>
 #include <string.h>
 

@@ -4,6 +4,6 @@ clonedEnv = env.Clone()
 # Specify source files to build
 SOURCES = Glob('*.cpp')
 
-PCAP_XCODE_Libs = clonedEnv.StaticLibrary(target = 'pcap_worker',  source = SOURCES)
-clonedEnv.Install('#/lib', PCAP_XCODE_Libs)
+ut_Libs = clonedEnv.StaticLibrary(target = 'ut',  source = SOURCES)
+clonedEnv.Install('#/lib', ut_Libs)
 clonedEnv.Alias('install', '#/lib')

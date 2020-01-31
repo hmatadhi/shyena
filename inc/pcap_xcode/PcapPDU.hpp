@@ -8,6 +8,9 @@
 #include "pcap_xcode/internal/MessageBuffer.hpp"
 #include "Pcap.hpp"
 #include "PCAP-IEs.h"
+
+
+
 /**
  * @class PcapPDU PcapPDU.hpp "inc/PcapPDU.hpp"
  * @brief PcapPDU class to hold the incoming/outgoing
@@ -17,6 +20,7 @@
 class PcapPDU
 {
 public:
+    explicit PcapPDU();
     /**
      * Construct #PcapPDU instance.
      *
@@ -61,15 +65,6 @@ public:
     const uint32_t DataLen() const;
 
     /**
-     * Set the context for this lte message
-     *
-     * @param[in] pLteCtxtArg context pointer
-     *
-     */
-    void SetContext(boost::shared_ptr<PcapContext> pcapCtxtArg);
-
-
-    /**
      * Decode the PCAP PDU from buffer
      *
      * @param[in] None
@@ -87,6 +82,14 @@ public:
     PCAP_RC encode() const;
  
      /**
+     * Set the context for this lte message
+     *
+     * @param[in] pLteCtxtArg context pointer
+     *
+     */
+    void SetContext(boost::shared_ptr<PcapContext> pPcapCtxtArg);
+
+     /**
      * print function
      *
      * @param[in] None
@@ -96,7 +99,7 @@ public:
 
     boost::shared_ptr<PcapContext> GetContext() const;
 
-    boost::shared_ptr<MessageBufferType> GetMessageBuffer() const; 
+    boost::shared_ptr<MessageBufferType>  GetMessageBuffer() const; 
 protected:
 
     boost::shared_ptr<MessageBufferType>    apMessageBuffer;

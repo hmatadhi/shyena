@@ -8,5 +8,6 @@ class UT_SAS {
 public:  
 int testContextDb(); 
 int testLogger(); 
+int testDecode(); 
 };
 

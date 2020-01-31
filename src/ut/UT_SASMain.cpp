@@ -2,14 +2,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <context_db/PcapProcedure.hpp>
-#include <context_db/SctpContext.hpp>
-#include <context_db/M3uaContext.hpp>
-#include <context_db/SccpContext.hpp>
-#include <context_db/PcapContext.hpp>
-#include <context_db/ContextDb.hpp>
-#include <UT/UT_SASMain.hpp>
-
+#include <context_db/SasContext.hpp>
+#include <ut/UT_SASMain.hpp>
+#include <layer_management/PcapLogger.hpp>
 
 int UT_SAS::testContextDb() 
 { 
@@ -38,7 +33,7 @@ int UT_SAS::testContextDb()
    PcapContext p1(1, sccpContext1);
    PcapContext p2(2, sccpContext2);
    PcapContext p3(3, sccpContext3);
-/*
+
    PcapProcedure pp4(4);
    PcapProcedure pp5(5);
    PcapProcedure pp6(6);
@@ -55,13 +50,13 @@ int UT_SAS::testContextDb()
    PcapContext y1(1, SccpContext(6,7,8,M3uaContext(1, SctpContext(2,3,addr3))));
    PcapContext y2(2, SccpContext(6,7,8,M3uaContext(2, SctpContext(3,4,addr3))));
    PcapContext y3(3, SccpContext(6,7,8,M3uaContext(3, SctpContext(4,5,addr3))));
-*/
+
    ContextDb cdb;
 
    cdb.addProcedure(p1, pp1);
    cdb.addProcedure(p2, pp2);
    cdb.addProcedure(p3, pp3);
-/*
+
    cdb.addProcedure(x1, pp4);
    cdb.addProcedure(x2, pp5);
    cdb.addProcedure(x3, pp6);
@@ -69,8 +64,8 @@ int UT_SAS::testContextDb()
    cdb.addProcedure(y1, pp7);
    cdb.addProcedure(y2, pp8);
    cdb.addProcedure(y3, pp9);
-*/
 
+/*
    if (cdb.checkKey(p1) == true) {
     PcapProcedure pp;
     pp=cdb.getValue(p1);
@@ -94,7 +89,7 @@ int UT_SAS::testContextDb()
     pp.print();
     std::cout << "\n-----\n";
    }
-
+*/
 
  /*  
    if (cdb.checkKey(x1) == true) {
@@ -153,8 +148,9 @@ int UT_SAS::testContextDb()
      for(vector<PcapProcedure>::iterator it = vecPcapProc.begin(); it != vecPcapProc.end(); it++) {
          PcapProcedure pp = *it;
          pp.print();
-          cout << "Looping through Session" << endl;
-     }   
+         LogDebug << "Looping through Session" << endl;
+     }
+    return 0;   
 
 }
 

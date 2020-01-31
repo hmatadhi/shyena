@@ -14,9 +14,11 @@
 #include "pcap_xcode/PcapPDU.hpp"
 #include "pcap_xcode/PcapProcessor.hpp"
 #include "pcap_xcode/internal/MessageBuffer.hpp"
+#include <layer_management/PcapLogger.hpp>
 
-#define LogError cout
-#define LogDebug cout
+
+//#define LogError cout
+//#define LogDebug cout
 
 using namespace std; 
 
@@ -109,6 +111,8 @@ PCAP_RC pcap_processor::EncapPcapPdu(boost::int32_t, boost::uint8_t) const
 /* requests */
 PCAP_RC pcap_processor::HandlePositionInitiationRequest(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+
+     LogDebug << "HandlePositionInitiationRequest" << "\n";
     pcap::ASN1T_PositionInitiationRequest pcapArg = *(static_cast<pcap::ASN1T_PositionInitiationRequest *>(pPdu));
 
     /* decode PI request, add members to context db; push context to task queue */    
@@ -117,18 +121,21 @@ PCAP_RC pcap_processor::HandlePositionInitiationRequest(void *pPdu, PcapContextP
 
 PCAP_RC pcap_processor::HandlePositionActivationRequest(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+
+     LogDebug << "HandlePositionActivationRequest" << "\n";    
     pcap::ASN1T_PositionActivationRequest pcapArg = *(static_cast<pcap::ASN1T_PositionActivationRequest *>(pPdu));
     /* decode PA request, add members to context db; push context to task queue */ 
     return PCAP_RC_OK;
 }
 
 PCAP_RC pcap_processor::HandlePositionAbort(void *pPdu, PcapContextPtrType pCtxt)  const
-{   
+{ 
+     LogDebug << "HandlePositionAbort" << "\n";   
     pcap::ASN1T_Abort pcapAbortPdu = *(static_cast<pcap::ASN1T_Abort *>(pPdu));
 
-    PcapAbort pAbrt(*(this->pPcapPDU));
+    //PcapAbort pAbrt(*(this->pPcapPDU));
 
-    ExtractPositionAbortData(pAbrt,pcapAbortPdu);    
+    //ExtractPositionAbortData(pAbrt,pcapAbortPdu);    
     /* decode Abort request, tremove members from queues, stop processing, remobe context from context db */ 
     return PCAP_RC_OK;
 }
@@ -137,6 +144,7 @@ PCAP_RC pcap_processor::HandlePositionAbort(void *pPdu, PcapContextPtrType pCtxt
 /* successful responses */
 PCAP_RC pcap_processor::HandlePositionInitiationResponse(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+     LogDebug << "HandlePositionInitiationResponse" << "\n";     
     pcap::ASN1T_PositionInitiationResponse pcapArg = *(static_cast<pcap::ASN1T_PositionInitiationResponse *>(pPdu));
     /* decode PI response, add members to context db; push context to task queue */ 
     return PCAP_RC_OK;
@@ -144,6 +152,7 @@ PCAP_RC pcap_processor::HandlePositionInitiationResponse(void *pPdu, PcapContext
 
 PCAP_RC pcap_processor::HandlePositionActivationResponse(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+     LogDebug << "HandlePositionActivationResponse" << "\n";    
     pcap::ASN1T_PositionActivationResponse pcapArg = *(static_cast<pcap::ASN1T_PositionActivationResponse *>(pPdu));
     /* decode PA response, add members to context db; push context to task queue */ 
     return PCAP_RC_OK;
@@ -153,6 +162,7 @@ PCAP_RC pcap_processor::HandlePositionActivationResponse(void *pPdu, PcapContext
 /* failure responses */
 PCAP_RC pcap_processor::HandlePositionInitiationError(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+     LogDebug << "HandlePositionInitiationError" << "\n";     
     pcap::ASN1T_PositionInitiationFailure pcapArg = *(static_cast<pcap::ASN1T_PositionInitiationFailure *>(pPdu));
     /* decode PI Failure, stop  processing*/ 
     return PCAP_RC_OK;
@@ -160,6 +170,7 @@ PCAP_RC pcap_processor::HandlePositionInitiationError(void *pPdu, PcapContextPtr
 
 PCAP_RC pcap_processor::HandlePositionActivationError(void *pPdu, PcapContextPtrType pCtxt)  const
 {
+     LogDebug << "HandlePositionActivationError" << "\n";      
     pcap::ASN1T_PositionActivationFailure pcapArg = *(static_cast<pcap::ASN1T_PositionActivationFailure *>(pPdu));
     /* decode PI Failure, stop  processing*/ 
     return PCAP_RC_OK;

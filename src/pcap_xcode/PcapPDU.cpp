@@ -2,31 +2,36 @@
 
 #include <iostream> 
 #include <string.h>
-
+#include <boost/make_shared.hpp>
 #include "context_db/PcapContext.hpp"
 #include "pcap_xcode/PcapPDU.hpp"
 #include "pcap_xcode/PcapProcessor.hpp"
 #include "pcap_xcode/internal/MessageBuffer.hpp"
 #include "pcap_xcode/internal/PcapMessageDecoderBase.hpp"
 
-PcapPDU::PcapPDU
-(
-    const uint8_t *pDataArg,
-    const uint32_t DataLenArg,
-    boost::shared_ptr<PcapContext> pcapCtxtArg
-)
-: apMessageBuffer(new MessageBufferType(pDataArg, DataLenArg))
-, apCtxt(pcapCtxtArg)
+PcapPDU::PcapPDU()
 {
 }
 
 PcapPDU::PcapPDU
 (
-    boost::shared_ptr<MessageBufferType>    pBufferArg,
+    boost::shared_ptr<MessageBufferType> pBufferArg,
     boost::shared_ptr<PcapContext> pcapCtxtArg
 )
 : apMessageBuffer(pBufferArg)
 , apCtxt(pcapCtxtArg)
+{
+}
+
+
+PcapPDU::PcapPDU
+(
+    const uint8_t *pDataArg,
+    const uint32_t DataLenArg,
+    boost::shared_ptr<PcapContext> pPcapCtxtArg
+)
+: apMessageBuffer(new MessageBufferType(pDataArg, DataLenArg))
+, apCtxt(pPcapCtxtArg)
 {
 }
 
@@ -47,9 +52,10 @@ const uint32_t PcapPDU::DataLen() const
 }
 
 /* Function to set the context */
-void PcapPDU::SetContext(boost::shared_ptr<PcapContext> pcapCtxtArg)
+void PcapPDU::SetContext(boost::shared_ptr<PcapContext> pPcapCtxtArg) 
 {
-    apCtxt = pcapCtxtArg;
+    //TODO: use reset??
+    apCtxt = pPcapCtxtArg;
 }
 
 /* Function to set the context */
@@ -70,6 +76,7 @@ PCAP_RC PcapPDU::decode() const
     /* ASN1 Decode */
     /* Set the local parameters for specific IEs */
     std::cout << __FUNCTION__ << ":" << __LINE__ << "Parse ASN, Fill local IE elements" << "\n";
+    this->ProcessMessage();
     return PCAP_RC_OK;
 }
 
@@ -93,8 +100,9 @@ void PcapPDU::print() const
 PCAP_RC PcapPDU::ProcessMessage() const
 {
     PCAP_RC ProcessorStatus = PCAP_RC_ERROR;
-    PcapMessageDecoderBaseType Decoder(this->GetMessageBuffer(), true);
-    PcapContextPtrType pCtxt = this->GetContext();
+
+    PcapMessageDecoderBaseType Decoder( this->GetMessageBuffer(), true);
+    PcapContextPtrType pCtxt(this->GetContext());
 
     int32_t PduType;
     uint8_t ProcedureCode;
